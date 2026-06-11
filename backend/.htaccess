@@ -1,6 +1,13 @@
 Options -Indexes
 RewriteEngine On
 
+<IfModule mod_headers.c>
+    Header always set Access-Control-Allow-Origin "https://webmoi-five.vercel.app"
+    Header always set Access-Control-Allow-Headers "Content-Type, Authorization, X-Requested-With"
+    Header always set Access-Control-Allow-Methods "GET, POST, PUT, PATCH, DELETE, OPTIONS"
+    Header always set Access-Control-Allow-Credentials "true"
+</IfModule>
+
 # Cho phép gọi API dạng /api/products.php
 RewriteCond %{REQUEST_FILENAME} -f [OR]
 RewriteCond %{REQUEST_FILENAME} -d
