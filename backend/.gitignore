@@ -1,0 +1,8 @@
+/config/database.php
+/assets/uploads/*
+.DS_Store
+Thumbs.db
+.vscode/
+.env
+config/oauth.php
+vendor/
