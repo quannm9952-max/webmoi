@@ -5,21 +5,7 @@ require_once __DIR__ . '/../includes/bootstrap.php';
 
 function api_cors(): void
 {
-    $origin = $_SERVER['HTTP_ORIGIN'] ?? '';
-    $allowed = array_filter([
-    defined('FRONTEND_URL') ? rtrim(FRONTEND_URL, '/') : '',
-    'https://webmoi-five.vercel.app',
-    'http://localhost:5173',
-    'http://localhost:3000',
-]);
-
-    if ($origin !== '' && in_array(rtrim($origin, '/'), $allowed, true)) {
-        header('Access-Control-Allow-Origin: ' . $origin);
-        header('Vary: Origin');
-    }
-
-
-
+    header('Access-Control-Allow-Origin: https://webmoi-five.vercel.app');
     header('Access-Control-Allow-Credentials: true');
     header('Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With');
     header('Access-Control-Allow-Methods: GET, POST, PUT, PATCH, DELETE, OPTIONS');
