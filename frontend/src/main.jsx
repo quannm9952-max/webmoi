@@ -15,7 +15,42 @@ function cleanText(value) {
 
 function LoginPage() {
   const [showPwd, setShowPwd] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [message, setMessage] = useState('');
+  const [submitting, setSubmitting] = useState(false);
 
+  async function handleLogin(e) {
+  e.preventDefault();
+  setMessage('');
+  setSubmitting(true);
+
+  try {
+    const res = await fetch(`${API_URL}/auth.php?action=login`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify({ email, password }),
+    });
+
+    const json = await res.json();
+
+    if (!json.success) {
+      setMessage(json.message || 'Đăng nhập thất bại.');
+      return;
+    }
+
+    if (Number(json.user?.id_vai_tro) === 1) {
+      window.location.href = `${BACKEND_URL}/admin/dashboard.php`;
+    } else {
+      window.location.href = '/';
+    }
+  } catch (err) {
+    setMessage('Không kết nối được máy chủ.');
+  } finally {
+    setSubmitting(false);
+  }
+}
   return (
     <div className="auth-page">
       <div className="auth-card">
@@ -29,10 +64,16 @@ function LoginPage() {
           Chào mừng trở lại! Vui lòng đăng nhập để tiếp tục.
         </p>
 
-        <form>
+        <form onSubmit={handleLogin}>
           <div className="mb-3">
             <label className="form-label">Email</label>
-            <input type="email" className="form-control" />
+            <input
+              type="email"
+              className="form-control"
+               value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="your@email.com"
+            />
           </div>
 
           <div className="mb-3">
@@ -42,14 +83,16 @@ function LoginPage() {
               <input
                 type={showPwd ? "text" : "password"}
                 className="form-control"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Nhập mật khẩu"
               />
 
-              <button
-                type="button"
-                onClick={() => setShowPwd(!showPwd)}
-              >
+              <button className="btn-auth-submit" disabled={submitting}>
+                {submitting ? 'Đang đăng nhập...' : 'Đăng nhập'}
                 👁
               </button>
+                {message && <p className="auth-error">{message}</p>}
             </div>
           </div>
 

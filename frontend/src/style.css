@@ -210,3 +210,14 @@ button, input, select { font-family: inherit; }
   font-weight:700;
   margin-top:15px;
 }
+.auth-error {
+  color: #ef4444;
+  text-align: center;
+  font-weight: 700;
+  margin-top: 12px;
+}
+
+.btn-auth-submit:disabled {
+  opacity: .7;
+  cursor: not-allowed;
+}
