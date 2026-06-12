@@ -13,7 +13,60 @@ function cleanText(value) {
   return String(value ?? '').trim();
 }
 
+function LoginPage() {
+  const [showPwd, setShowPwd] = useState(false);
+
+  return (
+    <div className="auth-page">
+      <div className="auth-card">
+        <a href="/" className="brand-logo">
+          <span className="brand-icon">T</span>
+          <span>Tech<span>Shop</span></span>
+        </a>
+
+        <h2>Đăng nhập</h2>
+        <p className="auth-subtitle">
+          Chào mừng trở lại! Vui lòng đăng nhập để tiếp tục.
+        </p>
+
+        <form>
+          <div className="mb-3">
+            <label className="form-label">Email</label>
+            <input type="email" className="form-control" />
+          </div>
+
+          <div className="mb-3">
+            <label className="form-label">Mật khẩu</label>
+
+            <div className="password-wrap">
+              <input
+                type={showPwd ? "text" : "password"}
+                className="form-control"
+              />
+
+              <button
+                type="button"
+                onClick={() => setShowPwd(!showPwd)}
+              >
+                👁
+              </button>
+            </div>
+          </div>
+
+          <button className="btn-auth-submit">
+            Đăng nhập
+          </button>
+        </form>
+      </div>
+    </div>
+  );
+}
+
 function App() {
+  if (window.location.pathname === "/login") {
+  return <LoginPage />;
+}
+
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [brands, setBrands] = useState([]);
@@ -107,7 +160,9 @@ function App() {
           <nav className="header-actions">
             <a href={`${BACKEND_URL}/favorites.php`} className="header-icon-btn" title="Yêu thích"><i className="bi bi-heart"></i></a>
             <a href={`${BACKEND_URL}/cart.php`} className="header-icon-btn" title="Giỏ hàng"><i className="bi bi-cart3"></i></a>
-            <a href={`${BACKEND_URL}/login.php`} className="login-btn"><i className="bi bi-person me-1"></i>Đăng nhập</a>
+            <a href="/login" className="login-btn">
+  <i className="bi bi-person me-1"></i>Đăng nhập
+</a>
           </nav>
         </div>
       </header>
