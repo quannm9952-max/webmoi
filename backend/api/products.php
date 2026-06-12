@@ -1,7 +1,6 @@
 <?php
 declare(strict_types=1);
 
-header('Access-Control-Allow-Origin: https://webmoi-five.vercel.app');
 header('Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With');
 header('Access-Control-Allow-Methods: GET, POST, PUT, PATCH, DELETE, OPTIONS');
 header('Content-Type: application/json; charset=utf-8');
